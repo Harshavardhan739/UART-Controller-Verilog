@@ -7,4 +7,8 @@ module uart_tx(
     output reg busy
 );
 
+reg [3:0] bit_count;
+reg [9:0] shift_reg;
+reg [1:0] state;
+
 endmodule
