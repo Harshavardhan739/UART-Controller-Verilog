@@ -36,7 +36,3 @@ Tools Used
 Author
 
 Harshavardhan Akula
-
-Status
-
-Project Under Development
