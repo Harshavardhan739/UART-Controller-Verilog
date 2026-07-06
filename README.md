@@ -29,7 +29,7 @@ The objective of this project is to design, implement, and verify a complete UAR
 ---
 
 📁 Project Structure
-```text
+
     UART-Controller-Verilog/
     ├── rtl/                  # Design Source Files
     │   ├── baud_gen.v
