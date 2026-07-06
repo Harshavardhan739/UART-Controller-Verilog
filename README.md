@@ -28,6 +28,7 @@ The objective of this project is to design, implement, and verify a complete UAR
 
 ---
 
+<<<<<<< HEAD
 ​📁 Project Structure
 
   ​📂 UART-Controller-Verilog/
@@ -49,6 +50,28 @@ The objective of this project is to design, implement, and verify a complete UAR
     ​📄 README.md
 ​
 ---
+=======
+📁 Project Structure
+
+    ​📂 UART-Controller-Verilog/
+      ​📂 rtl/ (Design Source Files)
+         ​📄 baud_gen.v
+         ​📄 uart_tx.v. 
+         ​📄 uart_rx.v
+         ​📄 uart_top.v
+      ​📂 tb/ (Testbench Verification Files)
+         ​📄 baud_gen_tb.v
+         ​📄 uart_tx_tb.v 
+         ​📄 uart_rx_tb.v
+         ​📄 uart_top_tb.v
+      📂 waveform/ (Simulation Waveform Logs)
+         🖼️ uart_top_waveform.png
+      ​📂 docs/ (Design Documentation and Diagrams)
+         🖼️ uart_tx_dataflow.png
+         🖼️ uart_rx_dataflow.png
+      📄 README.md
+​
+>>>>>>> 795d8ea22fa91c7d87809533907c75635553e1ac
 
 ⚙️ Module Description
 
@@ -207,7 +230,7 @@ Through this project, the following concepts were implemented and verified:
 
 Harshavardhan Akula
 
-GitHub: (Add your GitHub profile link here)
+GitHub: https://github.com/Harshavardhan739
 
 ---
 
