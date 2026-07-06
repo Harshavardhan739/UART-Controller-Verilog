@@ -46,8 +46,7 @@ The objective of this project is to design, implement, and verify a complete UAR
     ​📂 docs/ (Design Documentation and Diagrams)
        🖼️ uart_tx_dataflow.png
        🖼️ uart_rx_dataflow.png
-
-    ​📄 README.md
+    📄 README.md
 ​
 
 ---
