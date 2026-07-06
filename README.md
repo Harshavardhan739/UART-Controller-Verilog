@@ -29,24 +29,23 @@ The objective of this project is to design, implement, and verify a complete UAR
 ---
 
 📁 Project Structure
-
-  ​📂 UART-Controller-Verilog/
-    ​📂 rtl/ (Design Source Files)
-       ​📄 baud_gen.v
-       ​📄 uart_tx.v. 
-       ​📄 uart_rx.v
-       ​📄 uart_top.v
-     ​📂 tb/ (Testbench Verification Files)
-       ​📄 baud_gen_tb.v
-       ​📄 uart_tx_tb.v 
-       ​📄 uart_rx_tb.v
-       ​📄 uart_top_tb.v
-    📂 waveform/ (Simulation Waveform Logs)
-       🖼️ uart_top_waveform.png
-    ​📂 docs/ (Design Documentation and Diagrams)
-       🖼️ uart_tx_dataflow.png
-       🖼️ uart_rx_dataflow.png
-    📄 README.md
+└── UART-Controller-Verilog/
+    ├── rtl/                  # Design Source Files
+    │   ├── baud_gen.v
+    │   ├── uart_tx.v
+    │   ├── uart_rx.v
+    │   └── uart_top.v
+    ├── tb/                   # Testbench Verification Files
+    │   ├── baud_gen_tb.v
+    │   ├── uart_tx_tb.v
+    │   ├── uart_rx_tb.v
+    │   └── uart_top_tb.v
+    ├── waveforms/            # Simulation Waveform Logs
+    │   └── uart_top_waveform.png
+    ├── docs/                 # Design Documentation and Diagrams
+    │   ├── uart_tx_dataflow.png
+    │   └── uart_rx_dataflow.png
+    └── README.md
 ​
 
 ---
