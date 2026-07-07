@@ -166,9 +166,9 @@ The UART Controller successfully transmitted and received the 8-bit test data (0
 
 📸 Simulation Results
 
-📈 UART Top Waveform
+📈 UART Top Waveforms
 
-   ![UART Top Waveform](waveform/uart_top_waveform.png)
+   ![UART Top Waveforms](waveforms/uart_top_waveform.png)
 
 📤 UART Transmitter Dataflow
 
