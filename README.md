@@ -1,10 +1,10 @@
-#🚀 UART Controller in Verilog HDL
+🚀 UART Controller in Verilog HDL
 
   > **A complete UART (Universal Asynchronous Receiver/Transmitter) Controller implemented in Verilog HDL with functional verification using ModelSim Intel FPGA       Starter Edition.**
 
 ---
 
-##📖 Overview
+📖 Overview
 
 This project presents the design and functional verification of a complete UART (Universal Asynchronous Receiver/Transmitter) Controller implemented in Verilog HDL. The design includes a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level Integration Module. All modules were verified through simulation using ModelSim Intel FPGA Starter Edition.
 
