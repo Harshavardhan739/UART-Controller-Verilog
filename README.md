@@ -189,11 +189,11 @@ GitHub
 
 Module	Status
 
-Baud Rate Generator	    ✅ Verified
-UART Transmitter	      ✅ Verified
-UART Receiver	          ✅ Verified
-UART Top Module	        ✅ Verified
-Loopback Communication	✅ Passed
+    Baud Rate Generator	    ✅ Verified
+    UART Transmitter	      ✅ Verified
+    UART Receiver	          ✅ Verified
+    UART Top Module	        ✅ Verified
+    Loopback Communication	✅ Passed
 
 
 ---
