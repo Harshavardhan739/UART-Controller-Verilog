@@ -8,6 +8,7 @@ module uart_top_tb;
 parameter CLK_FREQ  = 100000000;
 parameter BAUD_RATE = 9600;
 parameter DATA_BITS = 8;
+parameter STOP_BITS = 2;
 
 // UART Bit Time (ns)
 localparam integer BIT_TIME = 1000000000 / BAUD_RATE;
@@ -34,19 +35,17 @@ wire busy;
 uart_top #(
     .CLK_FREQ(CLK_FREQ),
     .BAUD_RATE(BAUD_RATE),
-    .DATA_BITS(DATA_BITS)
+    .DATA_BITS(DATA_BITS),
+    .STOP_BITS(STOP_BITS)
 ) uut (
-
     .clk(clk),
     .rst(rst),
     .tx_start(tx_start),
     .data_in(data_in),
-
     .data_out(data_out),
     .tx(tx),
     .rx_done(rx_done),
     .busy(busy)
-
 );
 
 //=====================================
@@ -75,16 +74,21 @@ begin
     // Wait a few clock cycles
     repeat(5) @(posedge clk);
 
-    // Send Data
-    data_in  = 8'hA5;
-    tx_start = 1'b1;
+    //=====================================
+    // Send Test Data
+    //=====================================
+    if (DATA_BITS == 8)
+        data_in = 8'hA5;
+    else
+        data_in = 7'h25;
 
-    // Pulse tx_start for one clock cycle
+    // Start Transmission
+    tx_start = 1'b1;
     @(posedge clk);
     tx_start = 1'b0;
 
     // Wait for complete transmission and reception
-    #(12 * BIT_TIME);
+    #( (1 + DATA_BITS + STOP_BITS + 2) * BIT_TIME );
 
     $finish;
 end

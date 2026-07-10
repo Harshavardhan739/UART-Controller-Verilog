@@ -1,7 +1,8 @@
 `timescale 1ns/1ps
 
 module uart_tx #(
-    parameter DATA_BITS = 8
+    parameter DATA_BITS = 8,
+    parameter STOP_BITS = 1
 )(
     input clk,
     input rst,
@@ -18,6 +19,7 @@ module uart_tx #(
 // Internal Registers
 //=====================================
 reg [3:0] bit_count;
+reg [1:0] stop_count;
 reg [DATA_BITS-1:0] shift_reg;
 
 //=====================================
@@ -36,11 +38,12 @@ begin
 
     if(rst)
     begin
-        tx        <= 1'b1;
-        busy      <= 1'b0;
-        bit_count <= 4'd0;
-        shift_reg <= {DATA_BITS{1'b0}};
-        state     <= IDLE;
+        tx         <= 1'b1;
+        busy       <= 1'b0;
+        bit_count  <= 4'd0;
+        stop_count <= 2'd0;
+        shift_reg  <= {DATA_BITS{1'b0}};
+        state      <= IDLE;
     end
 
     else
@@ -58,10 +61,11 @@ begin
 
             if(tx_start)
             begin
-                shift_reg <= data_in;
-                bit_count <= 4'd0;
-                busy      <= 1'b1;
-                state     <= START;
+                shift_reg  <= data_in;
+                bit_count  <= 4'd0;
+                stop_count <= 2'd0;
+                busy       <= 1'b1;
+                state      <= START;
             end
         end
 
@@ -108,8 +112,16 @@ begin
 
             if(baud_tick)
             begin
-                busy  <= 1'b0;
-                state <= IDLE;
+                if(stop_count == STOP_BITS-1)
+                begin
+                    stop_count <= 2'd0;
+                    busy <= 1'b0;
+                    state <= IDLE;
+                end
+                else
+                begin
+                    stop_count <= stop_count + 1'b1;
+                end
             end
         end
 
@@ -118,10 +130,11 @@ begin
         //=====================================
         default:
         begin
-            tx        <= 1'b1;
-            busy      <= 1'b0;
-            bit_count <= 4'd0;
-            state     <= IDLE;
+            tx         <= 1'b1;
+            busy       <= 1'b0;
+            bit_count  <= 4'd0;
+            stop_count <= 2'd0;
+            state      <= IDLE;
         end
 
         endcase

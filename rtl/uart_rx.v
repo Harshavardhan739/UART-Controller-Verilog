@@ -1,7 +1,8 @@
 `timescale 1ns/1ps
 
 module uart_rx #(
-    parameter DATA_BITS = 8
+    parameter DATA_BITS = 8,
+    parameter STOP_BITS = 1
 )(
     input clk,
     input rst,
@@ -19,6 +20,7 @@ module uart_rx #(
 //=====================================
 reg [DATA_BITS-1:0] shift_reg;
 reg [3:0] bit_count;
+reg [1:0] stop_count;
 
 //=====================================
 // FSM State Definitions
@@ -36,12 +38,13 @@ begin
 
     if(rst)
     begin
-        data_out  <= {DATA_BITS{1'b0}};
-        rx_done   <= 1'b0;
-        busy      <= 1'b0;
+        data_out   <= {DATA_BITS{1'b0}};
+        rx_done    <= 1'b0;
+        busy       <= 1'b0;
 
-        shift_reg <= {DATA_BITS{1'b0}};
-        bit_count <= 4'd0;
+        shift_reg  <= {DATA_BITS{1'b0}};
+        bit_count  <= 4'd0;
+        stop_count <= 2'd0;
 
         state <= IDLE;
     end
@@ -61,9 +64,10 @@ begin
 
             if(rx == 1'b0)
             begin
-                busy      <= 1'b1;
-                bit_count <= 4'd0;
-                state     <= START;
+                busy       <= 1'b1;
+                bit_count  <= 4'd0;
+                stop_count <= 2'd0;
+                state      <= START;
             end
         end
 
@@ -106,10 +110,18 @@ begin
         begin
             if(baud_tick)
             begin
-                data_out <= shift_reg;
-                rx_done  <= 1'b1;
-                busy     <= 1'b0;
-                state    <= IDLE;
+                if(stop_count == STOP_BITS-1)
+                begin
+                    stop_count <= 2'd0;
+                    data_out   <= shift_reg;
+                    rx_done    <= 1'b1;
+                    busy       <= 1'b0;
+                    state      <= IDLE;
+                end
+                else
+                begin
+                    stop_count <= stop_count + 1'b1;
+                end
             end
         end
 
@@ -118,9 +130,11 @@ begin
         //=====================================
         default:
         begin
-            state   <= IDLE;
-            busy    <= 1'b0;
-            rx_done <= 1'b0;
+            state      <= IDLE;
+            busy       <= 1'b0;
+            rx_done    <= 1'b0;
+            bit_count  <= 4'd0;
+            stop_count <= 2'd0;
         end
 
         endcase

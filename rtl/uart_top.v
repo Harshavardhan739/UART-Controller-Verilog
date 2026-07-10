@@ -3,7 +3,8 @@
 module uart_top #(
     parameter CLK_FREQ  = 100000000,
     parameter BAUD_RATE = 9600,
-    parameter DATA_BITS = 8
+    parameter DATA_BITS = 8,
+    parameter STOP_BITS = 1
 )(
     input clk,
     input rst,
@@ -43,7 +44,8 @@ baud_inst
 // UART Transmitter Instantiation
 //=====================================
 uart_tx #(
-    .DATA_BITS(DATA_BITS)
+    .DATA_BITS(DATA_BITS),
+    .STOP_BITS(STOP_BITS)
 )
 tx_inst
 (
@@ -61,7 +63,8 @@ tx_inst
 // UART Receiver Instantiation
 //=====================================
 uart_rx #(
-    .DATA_BITS(DATA_BITS)
+    .DATA_BITS(DATA_BITS),
+    .STOP_BITS(STOP_BITS)
 )
 rx_inst
 (

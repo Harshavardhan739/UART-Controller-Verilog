@@ -8,6 +8,7 @@ module uart_tx_tb;
 parameter CLK_FREQ  = 100000000;
 parameter BAUD_RATE = 9600;
 parameter DATA_BITS = 8;
+parameter STOP_BITS = 2;
 
 // UART Bit Time (in ns)
 localparam integer BIT_TIME = 1000000000 / BAUD_RATE;
@@ -44,7 +45,8 @@ baud_gen #(
 // UART Transmitter Instantiation
 //=====================================
 uart_tx #(
-    .DATA_BITS(DATA_BITS)
+    .DATA_BITS(DATA_BITS),
+    .STOP_BITS(STOP_BITS)
 ) uut_tx (
     .clk(clk),
     .rst(rst),
@@ -82,16 +84,21 @@ begin
     // Wait for a few clock cycles
     repeat(5) @(posedge clk);
 
-    // Send Data
-    data_in  = 8'hA5;
+    // Load Test Data
+    if (DATA_BITS == 8)
+        data_in = 8'hA5;
+    else
+        data_in = 7'h25;
+
+    // Start Transmission
     tx_start = 1'b1;
 
     // Pulse tx_start for one clock cycle
     @(posedge clk);
     tx_start = 1'b0;
 
-    // Wait long enough for complete transmission
-    #(12 * BIT_TIME);
+    // Wait for complete transmission
+    #( (1 + DATA_BITS + STOP_BITS + 2) * BIT_TIME );
 
     // End Simulation
     $finish;

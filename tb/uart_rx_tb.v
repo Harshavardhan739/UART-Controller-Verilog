@@ -8,6 +8,7 @@ module uart_rx_tb;
 parameter CLK_FREQ  = 100000000;
 parameter BAUD_RATE = 9600;
 parameter DATA_BITS = 8;
+parameter STOP_BITS = 2;
 
 // UART Bit Time (in ns)
 localparam integer BIT_TIME = 1000000000 / BAUD_RATE;
@@ -44,7 +45,8 @@ baud_gen #(
 // UART Receiver Instantiation
 //=====================================
 uart_rx #(
-    .DATA_BITS(DATA_BITS)
+    .DATA_BITS(DATA_BITS),
+    .STOP_BITS(STOP_BITS)
 ) uut_rx (
     .clk(clk),
     .rst(rst),
@@ -83,29 +85,51 @@ begin
     repeat(5) @(posedge clk);
 
     //=====================================
-    // UART Frame (8'hA5)
-    // LSB First
+    // UART Frame (LSB First)
     //=====================================
 
     // Start Bit
     rx = 1'b0;
     #BIT_TIME;
 
+    //=====================================
     // Data Bits
-    rx = 1'b1; #BIT_TIME;   // Bit0
-    rx = 1'b0; #BIT_TIME;   // Bit1
-    rx = 1'b1; #BIT_TIME;   // Bit2
-    rx = 1'b0; #BIT_TIME;   // Bit3
-    rx = 1'b0; #BIT_TIME;   // Bit4
-    rx = 1'b1; #BIT_TIME;   // Bit5
-    rx = 1'b0; #BIT_TIME;   // Bit6
-    rx = 1'b1; #BIT_TIME;   // Bit7
+    //=====================================
+    if (DATA_BITS == 8)
+    begin
+        // 8'hA5 = 10100101
+        rx = 1'b1; #BIT_TIME;   // Bit0
+        rx = 1'b0; #BIT_TIME;   // Bit1
+        rx = 1'b1; #BIT_TIME;   // Bit2
+        rx = 1'b0; #BIT_TIME;   // Bit3
+        rx = 1'b0; #BIT_TIME;   // Bit4
+        rx = 1'b1; #BIT_TIME;   // Bit5
+        rx = 1'b0; #BIT_TIME;   // Bit6
+        rx = 1'b1; #BIT_TIME;   // Bit7
+    end
+    else
+    begin
+        // 7'h25 = 0100101
+        rx = 1'b1; #BIT_TIME;   // Bit0
+        rx = 1'b0; #BIT_TIME;   // Bit1
+        rx = 1'b1; #BIT_TIME;   // Bit2
+        rx = 1'b0; #BIT_TIME;   // Bit3
+        rx = 1'b0; #BIT_TIME;   // Bit4
+        rx = 1'b1; #BIT_TIME;   // Bit5
+        rx = 1'b0; #BIT_TIME;   // Bit6
+    end
 
-    // Stop Bit
+    //=====================================
+    // Stop Bit(s)
+    //=====================================
     rx = 1'b1;
-    #BIT_TIME;
 
-    // Keep line idle
+    if (STOP_BITS == 2)
+        #(2 * BIT_TIME);
+    else
+        #BIT_TIME;
+
+    // Keep Line Idle
     #(5 * BIT_TIME);
 
     $finish;
