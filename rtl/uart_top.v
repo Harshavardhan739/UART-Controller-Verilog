@@ -1,11 +1,16 @@
 `timescale 1ns/1ps
 
-module uart_top(
+module uart_top #(
+    parameter CLK_FREQ  = 100000000,
+    parameter BAUD_RATE = 9600,
+    parameter DATA_BITS = 8
+)(
     input clk,
     input rst,
     input tx_start,
-    input [7:0] data_in,
-    output [7:0] data_out,
+    input [DATA_BITS-1:0] data_in,
+
+    output [DATA_BITS-1:0] data_out,
     output tx,
     output rx_done,
     output busy
@@ -23,7 +28,12 @@ wire [1:0] rx_state;
 //=====================================
 // Baud Generator Instantiation
 //=====================================
-baud_gen baud_inst (
+baud_gen #(
+    .CLK_FREQ(CLK_FREQ),
+    .BAUD_RATE(BAUD_RATE)
+)
+baud_inst
+(
     .clk(clk),
     .rst(rst),
     .baud_tick(baud_tick)
@@ -32,7 +42,11 @@ baud_gen baud_inst (
 //=====================================
 // UART Transmitter Instantiation
 //=====================================
-uart_tx tx_inst (
+uart_tx #(
+    .DATA_BITS(DATA_BITS)
+)
+tx_inst
+(
     .clk(clk),
     .rst(rst),
     .baud_tick(baud_tick),
@@ -46,7 +60,11 @@ uart_tx tx_inst (
 //=====================================
 // UART Receiver Instantiation
 //=====================================
-uart_rx rx_inst (
+uart_rx #(
+    .DATA_BITS(DATA_BITS)
+)
+rx_inst
+(
     .clk(clk),
     .rst(rst),
     .baud_tick(baud_tick),

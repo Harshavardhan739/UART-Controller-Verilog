@@ -1,23 +1,23 @@
 `timescale 1ns/1ps
 
-module uart_rx(
-
+module uart_rx #(
+    parameter DATA_BITS = 8
+)(
     input clk,
     input rst,
     input baud_tick,
     input rx,
 
-    output reg [7:0] data_out,
+    output reg [DATA_BITS-1:0] data_out,
     output reg rx_done,
     output reg busy,
     output reg [1:0] state
-
 );
 
 //=====================================
 // Internal Registers
 //=====================================
-reg [7:0] shift_reg;
+reg [DATA_BITS-1:0] shift_reg;
 reg [3:0] bit_count;
 
 //=====================================
@@ -36,11 +36,11 @@ begin
 
     if(rst)
     begin
-        data_out  <= 8'd0;
+        data_out  <= {DATA_BITS{1'b0}};
         rx_done   <= 1'b0;
         busy      <= 1'b0;
 
-        shift_reg <= 8'd0;
+        shift_reg <= {DATA_BITS{1'b0}};
         bit_count <= 4'd0;
 
         state <= IDLE;
@@ -85,12 +85,16 @@ begin
         begin
             if(baud_tick)
             begin
-                shift_reg <= {rx, shift_reg[7:1]};
-                bit_count <= bit_count + 1;
+                shift_reg <= {rx, shift_reg[DATA_BITS-1:1]};
 
-                if(bit_count == 4'd7)
+                if(bit_count == DATA_BITS-1)
                 begin
+                    bit_count <= 4'd0;
                     state <= STOP;
+                end
+                else
+                begin
+                    bit_count <= bit_count + 1'b1;
                 end
             end
         end
@@ -109,9 +113,14 @@ begin
             end
         end
 
+        //=====================================
+        // DEFAULT
+        //=====================================
         default:
         begin
-            state <= IDLE;
+            state   <= IDLE;
+            busy    <= 1'b0;
+            rx_done <= 1'b0;
         end
 
         endcase

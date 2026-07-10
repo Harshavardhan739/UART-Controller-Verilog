@@ -3,6 +3,16 @@
 module uart_rx_tb;
 
 //=====================================
+// Parameters
+//=====================================
+parameter CLK_FREQ  = 100000000;
+parameter BAUD_RATE = 9600;
+parameter DATA_BITS = 8;
+
+// UART Bit Time (in ns)
+localparam integer BIT_TIME = 1000000000 / BAUD_RATE;
+
+//=====================================
 // Testbench Input Signals
 //=====================================
 reg clk;
@@ -13,7 +23,7 @@ reg rx;
 // Testbench Output Signals
 //=====================================
 wire baud_tick;
-wire [7:0] data_out;
+wire [DATA_BITS-1:0] data_out;
 wire rx_done;
 wire busy;
 wire [1:0] state;
@@ -21,7 +31,10 @@ wire [1:0] state;
 //=====================================
 // Baud Rate Generator Instantiation
 //=====================================
-baud_gen uut_baud(
+baud_gen #(
+    .CLK_FREQ(CLK_FREQ),
+    .BAUD_RATE(BAUD_RATE)
+) uut_baud (
     .clk(clk),
     .rst(rst),
     .baud_tick(baud_tick)
@@ -30,7 +43,9 @@ baud_gen uut_baud(
 //=====================================
 // UART Receiver Instantiation
 //=====================================
-uart_rx uut_rx(
+uart_rx #(
+    .DATA_BITS(DATA_BITS)
+) uut_rx (
     .clk(clk),
     .rst(rst),
     .baud_tick(baud_tick),
@@ -58,60 +73,41 @@ begin
 
     // Initialize Inputs
     rst = 1'b1;
-    rx  = 1'b1;      // UART Idle State
+    rx  = 1'b1;
 
     // Apply Reset
-    #20;
+    #100;
     rst = 1'b0;
 
-    // Wait
-    #20;
+    // Wait a few clock cycles
+    repeat(5) @(posedge clk);
 
     //=====================================
-    // Send UART Frame (8'hA5)
+    // UART Frame (8'hA5)
     // LSB First
     //=====================================
 
     // Start Bit
     rx = 1'b0;
-    #104160;
+    #BIT_TIME;
 
-    // Data Bits (A5 = 10100101)
-    // LSB First = 1 0 1 0 0 1 0 1
-
-    rx = 1'b1;   // Bit0
-    #104160;
-
-    rx = 1'b0;   // Bit1
-    #104160;
-
-    rx = 1'b1;   // Bit2
-    #104160;
-
-    rx = 1'b0;   // Bit3
-    #104160;
-
-    rx = 1'b0;   // Bit4
-    #104160;
-
-    rx = 1'b1;   // Bit5
-    #104160;
-
-    rx = 1'b0;   // Bit6
-    #104160;
-
-    rx = 1'b1;   // Bit7
-    #104160;
+    // Data Bits
+    rx = 1'b1; #BIT_TIME;   // Bit0
+    rx = 1'b0; #BIT_TIME;   // Bit1
+    rx = 1'b1; #BIT_TIME;   // Bit2
+    rx = 1'b0; #BIT_TIME;   // Bit3
+    rx = 1'b0; #BIT_TIME;   // Bit4
+    rx = 1'b1; #BIT_TIME;   // Bit5
+    rx = 1'b0; #BIT_TIME;   // Bit6
+    rx = 1'b1; #BIT_TIME;   // Bit7
 
     // Stop Bit
     rx = 1'b1;
+    #BIT_TIME;
 
-    //=====================================
-    // Wait Long Enough for UART Reception
-    //=====================================
-    #15000000;
+    // Keep line idle
+    #(5 * BIT_TIME);
 
-    // End Simulation
     $finish;
 
 end

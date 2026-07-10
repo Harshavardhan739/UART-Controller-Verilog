@@ -3,17 +3,27 @@
 module uart_top_tb;
 
 //=====================================
+// Parameters
+//=====================================
+parameter CLK_FREQ  = 100000000;
+parameter BAUD_RATE = 9600;
+parameter DATA_BITS = 8;
+
+// UART Bit Time (ns)
+localparam integer BIT_TIME = 1000000000 / BAUD_RATE;
+
+//=====================================
 // Testbench Inputs
 //=====================================
 reg clk;
 reg rst;
 reg tx_start;
-reg [7:0] data_in;
+reg [DATA_BITS-1:0] data_in;
 
 //=====================================
 // Testbench Outputs
 //=====================================
-wire [7:0] data_out;
+wire [DATA_BITS-1:0] data_out;
 wire tx;
 wire rx_done;
 wire busy;
@@ -21,7 +31,11 @@ wire busy;
 //=====================================
 // UART Top Instantiation
 //=====================================
-uart_top uut (
+uart_top #(
+    .CLK_FREQ(CLK_FREQ),
+    .BAUD_RATE(BAUD_RATE),
+    .DATA_BITS(DATA_BITS)
+) uut (
 
     .clk(clk),
     .rst(rst),
@@ -50,29 +64,28 @@ end
 initial
 begin
     // Initialize Inputs
-    rst = 1'b1;
+    rst      = 1'b1;
     tx_start = 1'b0;
-    data_in = 8'h00;
+    data_in  = {DATA_BITS{1'b0}};
 
     // Apply Reset
-    #20;
+    #100;
     rst = 1'b0;
 
-    // Wait for some time
-    #20;
+    // Wait a few clock cycles
+    repeat(5) @(posedge clk);
 
     // Send Data
-    data_in = 8'hA5;
+    data_in  = 8'hA5;
     tx_start = 1'b1;
 
     // Pulse tx_start for one clock cycle
-    #10;
+    @(posedge clk);
     tx_start = 1'b0;
 
-    // Wait for transmission and reception
-    #15000000;
+    // Wait for complete transmission and reception
+    #(12 * BIT_TIME);
 
-    // End Simulation
     $finish;
 end
 
