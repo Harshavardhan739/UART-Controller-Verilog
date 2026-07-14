@@ -53,7 +53,7 @@
     📂 UART-Controller-Verilog/  
      📂 rtl/ (Design Source Files)  
        📄 baud_gen.v  
-       📄 uart_tx.v.   
+       📄 uart_tx.v  
        📄 uart_rx.v  
        📄 uart_top.v  
     📂 tb/ (Testbench Verification Files)  
@@ -61,7 +61,7 @@
        📄 uart_tx_tb.v   
        📄 uart_rx_tb.v  
        📄 uart_top_tb.v  
-    📂 waveform/ (Simulation Waveform Logs)  
+    📂 waveforms/ (Simulation Waveform Logs)  
        🖼️ uart_top_waveform.png  
     📂 docs/ (Design Documentation and Diagrams)  
        🖼️ uart_tx_dataflow.png  
@@ -186,8 +186,9 @@ The UART Controller follows a modular RTL design methodology.
 ---
 
 ✅ Verification Status
+All modules were verified individually before performing complete UART loopback verification.
 
-Module	Status
+          Module	             Status
 
     Baud Rate Generator	      ✅ Verified
     UART Transmitter	      ✅ Verified
@@ -222,34 +223,31 @@ The following functionality has been verified:
 
 🧪 Test Case
 
-    • Input Data
+    Input Data      : 8'hA5 (10100101)
+     Configuration   :
+      • Baud Rate : 9600
+      • Data Bits : 8
+      • Parity    : Even
+      • Stop Bits : 2
 
-       10100101 (0xA5)
-
-    • Expected Output
-
-       10100101 (0xA5)
-
+    Expected Output : 8'hA5 (10100101)
 
 ---
 
 🎉 Simulation Results
 
     • Successful UART transmission
-
     • Successful UART reception
-
     • Correct recovery of transmitted data
-
-    • Proper baud timing generation
-
+    • Parameterized UART operation verified
+    • Correct baud timing generation
     • Correct FSM transitions
-
+    • Successful parity generation and checking
+    • Successful framing error detection
     • RX Done asserted successfully
-
     • FSM returned to IDLE state
-
     • No functional errors observed
+    
 
 
 ---
@@ -261,7 +259,7 @@ The following functionality has been verified:
 
 ---
 
-📸 Simulation Results
+📸 Waveforms and RTL Views
 
 UART Top Waveform
 
@@ -309,23 +307,19 @@ docs/uart_rx_dataflow.png
 Through this project, the following concepts were implemented and verified:
 
     • RTL Design using Verilog HDL
-
+    • Parameterized RTL Design
     • Finite State Machine (FSM) Design
-
     • UART Communication Protocol
-
+    • Baud Rate Generation
+    • Serial Data Transmission and Reception
+    • Parity Generation and Checking
+    • Framing Error Detection
     • Modular Hardware Design
-
     • Functional Simulation
-
     • Testbench Development
-
     • Digital System Integration
-
     • Waveform Analysis
-
     • RTL/Dataflow Verification
-
 
 ---
 
@@ -333,7 +327,7 @@ Through this project, the following concepts were implemented and verified:
 
 Harshavardhan Akula
 
-GitHub: https://github.com/Harshavardhan739
+GitHub Profile: https://github.com/Harshavardhan739
 
 
 ---
