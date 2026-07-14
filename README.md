@@ -166,21 +166,21 @@ The UART Controller follows a modular RTL design methodology.
 
 💻 Simulation Environment
 
-HDL Language
+    • HDL Language
 
-Verilog HDL
+        Verilog HDL
 
-Simulation Tool
+    • Simulation Tool
 
-ModelSim Intel FPGA Starter Edition 10.5b
+        ModelSim Intel FPGA Starter Edition 10.5b
 
-Code Editor
+    • Code Editor
 
-Visual Studio Code
+        Visual Studio Code
 
-Version Control
+    • Version Control
 
-GitHub
+        GitHub
 
 
 ---
@@ -235,21 +235,21 @@ Expected Output
 
 🎉 Simulation Results
 
-Successful UART transmission
+    • Successful UART transmission
 
-Successful UART reception
+    • Successful UART reception
 
-Correct recovery of transmitted data
+    • Correct recovery of transmitted data
 
-Proper baud timing generation
+    • Proper baud timing generation
 
-Correct FSM transitions
+    • Correct FSM transitions
 
-RX Done asserted successfully
+    • RX Done asserted successfully
 
-FSM returned to IDLE state
+    • FSM returned to IDLE state
 
-No functional errors observed
+    • No functional errors observed
 
 
 ---
@@ -308,23 +308,23 @@ docs/uart_rx_dataflow.png
 
 Through this project, the following concepts were implemented and verified:
 
-RTL Design using Verilog HDL
+    • RTL Design using Verilog HDL
 
-Finite State Machine (FSM) Design
+    • Finite State Machine (FSM) Design
 
-UART Communication Protocol
+    • UART Communication Protocol
 
-Modular Hardware Design
+    • Modular Hardware Design
 
-Functional Simulation
+    • Functional Simulation
 
-Testbench Development
+    • Testbench Development
 
-Digital System Integration
+    • Digital System Integration
 
-Waveform Analysis
+    • Waveform Analysis
 
-RTL/Dataflow Verification
+    • RTL/Dataflow Verification
 
 
 ---
