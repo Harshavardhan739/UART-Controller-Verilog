@@ -1,8 +1,10 @@
 `timescale 1ns/1ps
 
 module uart_tx #(
-    parameter DATA_BITS = 8,
-    parameter STOP_BITS = 1
+    parameter DATA_BITS   = 8,
+    parameter STOP_BITS   = 1,
+    parameter PARITY_EN   = 0,
+    parameter PARITY_TYPE = 0
 )(
     input clk,
     input rst,
@@ -12,7 +14,7 @@ module uart_tx #(
 
     output reg tx,
     output reg busy,
-    output reg [1:0] state
+    output reg [2:0] state
 );
 
 //=====================================
@@ -21,14 +23,16 @@ module uart_tx #(
 reg [3:0] bit_count;
 reg [1:0] stop_count;
 reg [DATA_BITS-1:0] shift_reg;
+reg parity_bit;
 
 //=====================================
 // FSM State Encoding
 //=====================================
-parameter IDLE  = 2'b00;
-parameter START = 2'b01;
-parameter DATA  = 2'b10;
-parameter STOP  = 2'b11;
+parameter IDLE   = 3'b000;
+parameter START  = 3'b001;
+parameter DATA   = 3'b010;
+parameter PARITY = 3'b011;
+parameter STOP   = 3'b100;
 
 //=====================================
 // UART Transmitter Sequential Logic
@@ -43,6 +47,7 @@ begin
         bit_count  <= 4'd0;
         stop_count <= 2'd0;
         shift_reg  <= {DATA_BITS{1'b0}};
+        parity_bit <= 1'b0;
         state      <= IDLE;
     end
 
@@ -64,8 +69,24 @@ begin
                 shift_reg  <= data_in;
                 bit_count  <= 4'd0;
                 stop_count <= 2'd0;
-                busy       <= 1'b1;
-                state      <= START;
+
+                //=====================================
+                // Parity Generation
+                //=====================================
+                if(PARITY_EN)
+                begin
+                    if(PARITY_TYPE == 0)
+                        parity_bit <= ^data_in;      // Even Parity
+                    else
+                        parity_bit <= ~(^data_in);   // Odd Parity
+                end
+                else
+                begin
+                    parity_bit <= 1'b0;
+                end
+
+                busy  <= 1'b1;
+                state <= START;
             end
         end
 
@@ -94,13 +115,28 @@ begin
                 if(bit_count == DATA_BITS-1)
                 begin
                     bit_count <= 4'd0;
-                    state <= STOP;
+
+                    if(PARITY_EN)
+                        state <= PARITY;
+                    else
+                        state <= STOP;
                 end
                 else
                 begin
                     bit_count <= bit_count + 1'b1;
                 end
             end
+        end
+
+        //=====================================
+        // PARITY STATE
+        //=====================================
+        PARITY:
+        begin
+            tx <= parity_bit;
+
+            if(baud_tick)
+                state <= STOP;
         end
 
         //=====================================
@@ -134,6 +170,7 @@ begin
             busy       <= 1'b0;
             bit_count  <= 4'd0;
             stop_count <= 2'd0;
+            parity_bit <= 1'b0;
             state      <= IDLE;
         end
 

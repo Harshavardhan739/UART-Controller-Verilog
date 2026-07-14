@@ -5,10 +5,12 @@ module uart_top_tb;
 //=====================================
 // Parameters
 //=====================================
-parameter CLK_FREQ  = 100000000;
-parameter BAUD_RATE = 9600;
-parameter DATA_BITS = 8;
-parameter STOP_BITS = 2;
+parameter CLK_FREQ    = 100000000;
+parameter BAUD_RATE   = 9600;
+parameter DATA_BITS   = 8;
+parameter STOP_BITS   = 2;
+parameter PARITY_EN   = 1;
+parameter PARITY_TYPE = 0;   // 0 = Even, 1 = Odd
 
 // UART Bit Time (ns)
 localparam integer BIT_TIME = 1000000000 / BAUD_RATE;
@@ -27,6 +29,8 @@ reg [DATA_BITS-1:0] data_in;
 wire [DATA_BITS-1:0] data_out;
 wire tx;
 wire rx_done;
+wire parity_error;
+wire framing_error;
 wire busy;
 
 //=====================================
@@ -36,7 +40,9 @@ uart_top #(
     .CLK_FREQ(CLK_FREQ),
     .BAUD_RATE(BAUD_RATE),
     .DATA_BITS(DATA_BITS),
-    .STOP_BITS(STOP_BITS)
+    .STOP_BITS(STOP_BITS),
+    .PARITY_EN(PARITY_EN),
+    .PARITY_TYPE(PARITY_TYPE)
 ) uut (
     .clk(clk),
     .rst(rst),
@@ -45,6 +51,8 @@ uart_top #(
     .data_out(data_out),
     .tx(tx),
     .rx_done(rx_done),
+    .parity_error(parity_error),
+    .framing_error(framing_error),
     .busy(busy)
 );
 
@@ -77,18 +85,22 @@ begin
     //=====================================
     // Send Test Data
     //=====================================
-    if (DATA_BITS == 8)
+    if(DATA_BITS == 8)
         data_in = 8'hA5;
     else
         data_in = 7'h25;
 
+    //=====================================
     // Start Transmission
+    //=====================================
     tx_start = 1'b1;
     @(posedge clk);
     tx_start = 1'b0;
 
-    // Wait for complete transmission and reception
-    #( (1 + DATA_BITS + STOP_BITS + 2) * BIT_TIME );
+    //=====================================
+    // Wait for Complete Transmission
+    //=====================================
+    #( (1 + DATA_BITS + PARITY_EN + STOP_BITS + 2) * BIT_TIME );
 
     $finish;
 end

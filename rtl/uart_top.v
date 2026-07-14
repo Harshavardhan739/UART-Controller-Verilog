@@ -1,10 +1,12 @@
 `timescale 1ns/1ps
 
 module uart_top #(
-    parameter CLK_FREQ  = 100000000,
-    parameter BAUD_RATE = 9600,
-    parameter DATA_BITS = 8,
-    parameter STOP_BITS = 1
+    parameter CLK_FREQ    = 100000000,
+    parameter BAUD_RATE   = 9600,
+    parameter DATA_BITS   = 8,
+    parameter STOP_BITS   = 1,
+    parameter PARITY_EN   = 0,
+    parameter PARITY_TYPE = 0
 )(
     input clk,
     input rst,
@@ -14,6 +16,8 @@ module uart_top #(
     output [DATA_BITS-1:0] data_out,
     output tx,
     output rx_done,
+    output parity_error,
+    output framing_error,
     output busy
 );
 
@@ -23,8 +27,8 @@ module uart_top #(
 wire baud_tick;
 wire tx_line;
 wire busy_tx;
-wire [1:0] tx_state;
-wire [1:0] rx_state;
+wire [2:0] tx_state;
+wire [2:0] rx_state;
 
 //=====================================
 // Baud Generator Instantiation
@@ -45,7 +49,9 @@ baud_inst
 //=====================================
 uart_tx #(
     .DATA_BITS(DATA_BITS),
-    .STOP_BITS(STOP_BITS)
+    .STOP_BITS(STOP_BITS),
+    .PARITY_EN(PARITY_EN),
+    .PARITY_TYPE(PARITY_TYPE)
 )
 tx_inst
 (
@@ -64,7 +70,9 @@ tx_inst
 //=====================================
 uart_rx #(
     .DATA_BITS(DATA_BITS),
-    .STOP_BITS(STOP_BITS)
+    .STOP_BITS(STOP_BITS),
+    .PARITY_EN(PARITY_EN),
+    .PARITY_TYPE(PARITY_TYPE)
 )
 rx_inst
 (
@@ -74,6 +82,8 @@ rx_inst
     .rx(tx_line),
     .data_out(data_out),
     .rx_done(rx_done),
+    .parity_error(parity_error),
+    .framing_error(framing_error),
     .busy(busy),
     .state(rx_state)
 );

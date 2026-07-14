@@ -5,10 +5,12 @@ module uart_tx_tb;
 //=====================================
 // Parameters
 //=====================================
-parameter CLK_FREQ  = 100000000;
-parameter BAUD_RATE = 9600;
-parameter DATA_BITS = 8;
-parameter STOP_BITS = 2;
+parameter CLK_FREQ    = 100000000;
+parameter BAUD_RATE   = 9600;
+parameter DATA_BITS   = 8;
+parameter STOP_BITS   = 2;
+parameter PARITY_EN   = 1;
+parameter PARITY_TYPE = 0;   // 0 = Even, 1 = Odd
 
 // UART Bit Time (in ns)
 localparam integer BIT_TIME = 1000000000 / BAUD_RATE;
@@ -27,7 +29,7 @@ reg [DATA_BITS-1:0] data_in;
 wire baud_tick;
 wire tx;
 wire busy;
-wire [1:0] state;
+wire [2:0] state;
 
 //=====================================
 // Baud Rate Generator Instantiation
@@ -46,7 +48,9 @@ baud_gen #(
 //=====================================
 uart_tx #(
     .DATA_BITS(DATA_BITS),
-    .STOP_BITS(STOP_BITS)
+    .STOP_BITS(STOP_BITS),
+    .PARITY_EN(PARITY_EN),
+    .PARITY_TYPE(PARITY_TYPE)
 ) uut_tx (
     .clk(clk),
     .rst(rst),
@@ -85,7 +89,7 @@ begin
     repeat(5) @(posedge clk);
 
     // Load Test Data
-    if (DATA_BITS == 8)
+    if(DATA_BITS == 8)
         data_in = 8'hA5;
     else
         data_in = 7'h25;
@@ -98,7 +102,7 @@ begin
     tx_start = 1'b0;
 
     // Wait for complete transmission
-    #( (1 + DATA_BITS + STOP_BITS + 2) * BIT_TIME );
+    #( (1 + DATA_BITS + PARITY_EN + STOP_BITS + 2) * BIT_TIME );
 
     // End Simulation
     $finish;
