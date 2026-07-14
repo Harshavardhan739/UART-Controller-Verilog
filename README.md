@@ -13,7 +13,7 @@
 
 > This project presents the RTL design and functional verification of a Universal Asynchronous Receiver/Transmitter (UART) Controller using Verilog HDL. The design consists of a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level Integration Module. Functional verification was performed using ModelSim Intel FPGA Starter Edition, demonstrating successful end-to-end serial communication through loopback testing.
 
-The implementation validates correct baud timing generation, finite state machine (FSM) operation, serial data transmission, serial data reception, and data integrity.
+> The implementation validates correct baud timing generation, finite state machine (FSM) operation, serial data transmission, serial data reception, and data integrity.
 
 
 ---
@@ -78,7 +78,7 @@ The implementation validates correct baud timing generation, finite state machin
 
 > Generates baud timing pulses required for UART communication.
 
-Provides synchronized baud ticks for both transmitter and receiver.
+> Provides synchronized baud ticks for both transmitter and receiver.
 
 
 ---
@@ -140,7 +140,7 @@ The transmitter output is internally connected to the receiver input to perform 
 
 🏗️ Design Methodology
 
-> The UART Controller follows a modular RTL design methodology.
+The UART Controller follows a modular RTL design methodology.
 
 1. Baud clock generation
 
