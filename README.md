@@ -11,7 +11,7 @@
 
 📖 Overview
 
-This project presents the RTL design and functional verification of a Universal Asynchronous Receiver/Transmitter (UART) Controller using Verilog HDL. The design consists of a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level Integration Module. Functional verification was performed using ModelSim Intel FPGA Starter Edition, demonstrating successful end-to-end serial communication through loopback testing.
+> This project presents the RTL design and functional verification of a Universal Asynchronous Receiver/Transmitter (UART) Controller using Verilog HDL. The design consists of a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level Integration Module. Functional verification was performed using ModelSim Intel FPGA Starter Edition, demonstrating successful end-to-end serial communication through loopback testing.
 
 The implementation validates correct baud timing generation, finite state machine (FSM) operation, serial data transmission, serial data reception, and data integrity.
 
@@ -20,7 +20,7 @@ The implementation validates correct baud timing generation, finite state machin
 
 🎯 Project Objective
 
-The objective of this project is to design, implement, and verify a complete UART Controller using Verilog HDL. The project demonstrates asynchronous serial communication by integrating a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level module while validating the design through functional simulation.
+> The objective of this project is to design, implement, and verify a complete UART Controller using Verilog HDL. The project demonstrates asynchronous serial communication by integrating a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level module while validating the design through functional simulation.
 
 
 ---
@@ -76,7 +76,7 @@ The objective of this project is to design, implement, and verify a complete UAR
 
 🕐 Baud Rate Generator
 
-Generates baud timing pulses required for UART communication.
+> Generates baud timing pulses required for UART communication.
 
 Provides synchronized baud ticks for both transmitter and receiver.
 
@@ -140,7 +140,7 @@ The transmitter output is internally connected to the receiver input to perform 
 
 🏗️ Design Methodology
 
-The UART Controller follows a modular RTL design methodology.
+> The UART Controller follows a modular RTL design methodology.
 
 1. Baud clock generation
 
@@ -222,13 +222,13 @@ The following functionality has been verified:
 
 🧪 Test Case
 
-Input Data
+    • Input Data
 
-10100101 (0xA5)
+       10100101 (0xA5)
 
-Expected Output
+    • Expected Output
 
-10100101 (0xA5)
+      10100101 (0xA5)
 
 
 ---
@@ -256,7 +256,7 @@ Expected Output
 
 📊 Results
 
-The UART Controller successfully transmitted and received serial data using configurable baud rates, configurable data widths (7-bit/8-bit), configurable stop bits (1/2), and configurable parity (Even/Odd/None). Simulation results verified correct baud timing, accurate FSM transitions, reliable serial communication, parity checking, framing error detection, and successful end-to-end loopback communication using ModelSim.
+> The UART Controller successfully transmitted and received serial data using configurable baud rates, configurable data widths (7-bit/8-bit), configurable stop bits (1/2), and configurable parity (Even/Odd/None). Simulation results verified correct baud timing, accurate FSM transitions, reliable serial communication, parity checking, framing error detection, and successful end-to-end loopback communication using ModelSim.
 
 
 ---
