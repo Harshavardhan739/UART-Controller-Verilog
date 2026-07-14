@@ -27,23 +27,23 @@ The objective of this project is to design, implement, and verify a complete UAR
 
 ✨ Features
 
-• Parameterized Baud Rate Generator
-• Configurable Data Width (7-bit / 8-bit)
-• Configurable Stop Bits (1 / 2)
-• Configurable Parity
-  - Even Parity
-  - Odd Parity
-  - No Parity
-• UART Transmitter
-• UART Receiver
-• UART Top-Level Integration
-• FSM-Based Control Logic
-• Framing Error Detection
-• Modular RTL Design
-• Individual Testbenches for Each Module
-• Loopback Communication Verification
-• ModelSim Waveform Verification
-• RTL/Dataflow Verification
+    • Parameterized Baud Rate Generator
+    • Configurable Data Width (7-bit / 8-bit)
+    • Configurable Stop Bits (1 / 2)
+    • Configurable Parity
+      - Even Parity
+      - Odd Parity
+      - No Parity
+    • UART Transmitter
+    • UART Receiver
+    • UART Top-Level Integration
+    • FSM-Based Control Logic
+    • Framing Error Detection
+    • Modular RTL Design
+    • Individual Testbenches for Each Module
+    • Loopback Communication Verification
+    • ModelSim Waveform Verification
+    • RTL/Dataflow Verification
 
 
 ---
@@ -87,18 +87,18 @@ Provides synchronized baud ticks for both transmitter and receiver.
 
 Converts parallel data into serial data according to the UART protocol.
 
-Features:
-• Configurable 7-bit / 8-bit data
-• Configurable Even/Odd/No Parity
-• Configurable 1 or 2 Stop Bits
+    Features:
+    • Configurable 7-bit / 8-bit data
+    • Configurable Even/Odd/No Parity
+    • Configurable 1 or 2 Stop Bits
 
-FSM States
+    FSM States
 
-• IDLE
-• START
-• DATA
-• PARITY
-• STOP
+    • IDLE
+    • START
+    • DATA
+    • PARITY
+    • STOP
 
 ---
 
@@ -106,32 +106,32 @@ FSM States
 
 Receives serial data and reconstructs the original parallel data.
 
-Features:
-• Configurable 7-bit / 8-bit data
-• Configurable Even/Odd/No Parity
-• Configurable 1 or 2 Stop Bits
-• Parity Error Detection
-• Framing Error Detection
+    Features:
+    • Configurable 7-bit / 8-bit data
+    • Configurable Even/Odd/No Parity
+    • Configurable 1 or 2 Stop Bits
+    • Parity Error Detection
+    • Framing Error Detection
 
-FSM States
+    FSM States
 
-• IDLE
-• START
-• DATA
-• PARITY
-• STOP
+    • IDLE
+    • START
+    • DATA
+    • PARITY
+    • STOP
 
 ---
 
 🎛️ UART Top Module
 
-Integrates:
+    Integrates:
 
-Baud Rate Generator
+    • Baud Rate Generator
 
-UART Transmitter
+    • UART Transmitter
 
-UART Receiver
+    • UART Receiver
 
 The transmitter output is internally connected to the receiver input to perform complete loopback verification.
 
@@ -202,22 +202,22 @@ Module	Status
 
 The following functionality has been verified:
 
-• Baud Tick Generation
-• UART Transmission
-• UART Reception
-• 7-bit / 8-bit Data Transfer
-• Even Parity Verification
-• Odd Parity Verification
-• No Parity Mode
-• 1 Stop Bit Operation
-• 2 Stop Bit Operation
-• Parity Error Detection
-• Framing Error Detection
-• FSM State Transitions
-• Busy Signal Operation
-• RX Done Assertion
-• Data Integrity
-• End-to-End UART Communication
+    • Baud Tick Generation
+    • UART Transmission
+    • UART Reception
+    • 7-bit / 8-bit Data Transfer
+    • Even Parity Verification
+    • Odd Parity Verification
+    • No Parity Mode
+    • 1 Stop Bit Operation
+    • 2 Stop Bit Operation
+    • Parity Error Detection
+    • Framing Error Detection
+    • FSM State Transitions
+    • Busy Signal Operation
+    • RX Done Assertion
+    • Data Integrity
+    • End-to-End UART Communication
 ---
 
 🧪 Test Case
@@ -280,27 +280,27 @@ docs/uart_rx_dataflow.png
 
 🛠️ Skills Demonstrated
 
-• Verilog HDL
-• RTL Design
-• Parameterized RTL Design
-• Finite State Machine (FSM)
-• UART Communication Protocol
-• Functional Verification
-• Testbench Development
-• Waveform Analysis
-• Error Detection Techniques
-• Modular Hardware Design
-• GitHub
+    • Verilog HDL
+    • RTL Design
+    • Parameterized RTL Design
+    • Finite State Machine (FSM)
+    • UART Communication Protocol
+    • Functional Verification
+    • Testbench Development
+    • Waveform Analysis
+    • Error Detection Techniques
+    • Modular Hardware Design
+    • GitHub
 
 ---
 
 🚀 Future Enhancements
 
-• FIFO Buffer Integration
-• Interrupt Support
-• Hardware Validation on FPGA
-• UART Register Interface
-• APB/AHB Bus Interface
+    • FIFO Buffer Integration
+    • Interrupt Support
+    • Hardware Validation on FPGA
+    • UART Register Interface
+    • APB/AHB Bus Interface
 
 ---
 
