@@ -11,41 +11,39 @@
 
 📖 Overview
 
-This project presents the RTL design and functional verification of a Universal Asynchronous Receiver/Transmitter (UART) Controller using Verilog HDL. The design consists of a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level Integration Module. Functional verification was performed using ModelSim Intel FPGA Starter Edition, demonstrating successful end-to-end serial communication through loopback testing.
+> This project presents the RTL design and functional verification of a Universal Asynchronous Receiver/Transmitter (UART) Controller using Verilog HDL. The design consists of a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level Integration Module. Functional verification was performed using ModelSim Intel FPGA Starter Edition, demonstrating successful end-to-end serial communication through loopback testing.
 
-The implementation validates correct baud timing generation, finite state machine (FSM) operation, serial data transmission, serial data reception, and data integrity.
+> The implementation validates correct baud timing generation, finite state machine (FSM) operation, serial data transmission, serial data reception, and data integrity.
 
 
 ---
 
 🎯 Project Objective
 
-The objective of this project is to design, implement, and verify a complete UART Controller using Verilog HDL. The project demonstrates asynchronous serial communication by integrating a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level module while validating the design through functional simulation.
+> The objective of this project is to design, implement, and verify a complete UART Controller using Verilog HDL. The project demonstrates asynchronous serial communication by integrating a Baud Rate Generator, UART Transmitter, UART Receiver, and a Top-Level module while validating the design through functional simulation.
 
 
 ---
 
 ✨ Features
 
-8-bit UART Transmitter
-
-8-bit UART Receiver
-
-Baud Rate Generator
-
-UART Top-Level Integration
-
-FSM-Based Control Logic
-
-Modular RTL Design
-
-Individual Testbenches for Each Module
-
-Loopback Communication Verification
-
-ModelSim Waveform Verification
-
-RTL/Dataflow Verification
+    • Parameterized Baud Rate Generator
+    • Configurable Data Width (7-bit / 8-bit)
+    • Configurable Stop Bits (1 / 2)
+    • Configurable Parity
+      - Even Parity
+      - Odd Parity
+      - No Parity
+    • UART Transmitter
+    • UART Receiver
+    • UART Top-Level Integration
+    • FSM-Based Control Logic
+    • Framing Error Detection
+    • Modular RTL Design
+    • Individual Testbenches for Each Module
+    • Loopback Communication Verification
+    • ModelSim Waveform Verification
+    • RTL/Dataflow Verification
 
 
 ---
@@ -55,7 +53,7 @@ RTL/Dataflow Verification
     📂 UART-Controller-Verilog/  
      📂 rtl/ (Design Source Files)  
        📄 baud_gen.v  
-       📄 uart_tx.v.   
+       📄 uart_tx.v  
        📄 uart_rx.v  
        📄 uart_top.v  
     📂 tb/ (Testbench Verification Files)  
@@ -63,7 +61,7 @@ RTL/Dataflow Verification
        📄 uart_tx_tb.v   
        📄 uart_rx_tb.v  
        📄 uart_top_tb.v  
-    📂 waveform/ (Simulation Waveform Logs)  
+    📂 waveforms/ (Simulation Waveform Logs)  
        🖼️ uart_top_waveform.png  
     📂 docs/ (Design Documentation and Diagrams)  
        🖼️ uart_tx_dataflow.png  
@@ -78,60 +76,62 @@ RTL/Dataflow Verification
 
 🕐 Baud Rate Generator
 
-Generates baud timing pulses required for UART communication.
+> Generates baud timing pulses required for UART communication.
 
-Provides synchronized baud ticks for both transmitter and receiver.
+> Provides synchronized baud ticks for both transmitter and receiver.
 
 
 ---
 
 📤 UART Transmitter
 
-Converts 8-bit parallel data into serial data.
+Converts parallel data into serial data according to the UART protocol.
 
-Implements UART transmission protocol using an FSM.
+    Features:
+    • Configurable 7-bit / 8-bit data
+    • Configurable Even/Odd/No Parity
+    • Configurable 1 or 2 Stop Bits
 
-FSM States
+    FSM States
 
-IDLE
-
-START
-
-DATA
-
-STOP
-
+    • IDLE
+    • START
+    • DATA
+    • PARITY
+    • STOP
 
 ---
 
 📥 UART Receiver
 
-Receives serial data and reconstructs the original 8-bit parallel data.
+Receives serial data and reconstructs the original parallel data.
 
-Implements UART reception protocol using an FSM.
+    Features:
+    • Configurable 7-bit / 8-bit data
+    • Configurable Even/Odd/No Parity
+    • Configurable 1 or 2 Stop Bits
+    • Parity Error Detection
+    • Framing Error Detection
 
-FSM States
+    FSM States
 
-IDLE
-
-START
-
-DATA
-
-STOP
-
+    • IDLE
+    • START
+    • DATA
+    • PARITY
+    • STOP
 
 ---
 
 🎛️ UART Top Module
 
-Integrates:
+    Integrates:
 
-Baud Rate Generator
+    • Baud Rate Generator
 
-UART Transmitter
+    • UART Transmitter
 
-UART Receiver
+    • UART Receiver
 
 The transmitter output is internally connected to the receiver input to perform complete loopback verification.
 
@@ -166,34 +166,36 @@ The UART Controller follows a modular RTL design methodology.
 
 💻 Simulation Environment
 
-HDL Language
+    • HDL Language
 
-Verilog HDL
+        Verilog HDL
 
-Simulation Tool
+    • Simulation Tool
 
-ModelSim Intel FPGA Starter Edition 10.5b
+        ModelSim Intel FPGA Starter Edition 10.5b
 
-Code Editor
+    • Code Editor
 
-Visual Studio Code
+        Visual Studio Code
 
-Version Control
+    • Version Control
 
-GitHub
+        GitHub
 
 
 ---
 
 ✅ Verification Status
 
-Module	Status
+All modules were verified individually before performing complete UART loopback verification.
 
-    Baud Rate Generator	    ✅ Verified
+          Module	             Status
+
+    Baud Rate Generator	      ✅ Verified
     UART Transmitter	      ✅ Verified
     UART Receiver	          ✅ Verified
-    UART Top Module	        ✅ Verified
-    Loopback Communication	✅ Passed
+    UART Top Module	          ✅ Verified
+    Loopback Communication	  ✅ Passed
 
 
 ---
@@ -202,67 +204,63 @@ Module	Status
 
 The following functionality has been verified:
 
-Baud Tick Generation
-
-UART Transmission
-
-UART Reception
-
-FSM State Transitions
-
-Busy Signal Operation
-
-RX Done Assertion
-
-Data Integrity
-
-End-to-End UART Communication
-
-
+    • Baud Tick Generation
+    • UART Transmission
+    • UART Reception
+    • 7-bit / 8-bit Data Transfer
+    • Even Parity Verification
+    • Odd Parity Verification
+    • No Parity Mode
+    • 1 Stop Bit Operation
+    • 2 Stop Bit Operation
+    • Parity Error Detection
+    • Framing Error Detection
+    • FSM State Transitions
+    • Busy Signal Operation
+    • RX Done Assertion
+    • Data Integrity
+    • End-to-End UART Communication
 ---
 
 🧪 Test Case
 
-Input Data
+    Input Data      : 8'hA5 (10100101)
+     Configuration   :
+      • Baud Rate : 9600
+      • Data Bits : 8
+      • Parity    : Even
+      • Stop Bits : 2
 
-10100101 (0xA5)
-
-Expected Output
-
-10100101 (0xA5)
-
+    Expected Output : 8'hA5 (10100101)
 
 ---
 
 🎉 Simulation Results
 
-Successful UART transmission
-
-Successful UART reception
-
-Correct recovery of transmitted data
-
-Proper baud timing generation
-
-Correct FSM transitions
-
-RX Done asserted successfully
-
-FSM returned to IDLE state
-
-No functional errors observed
+    • Successful UART transmission
+    • Successful UART reception
+    • Correct recovery of transmitted data
+    • Parameterized UART operation verified
+    • Correct baud timing generation
+    • Correct FSM transitions
+    • Successful parity generation and checking
+    • Successful framing error detection
+    • RX Done asserted successfully
+    • FSM returned to IDLE state
+    • No functional errors observed
+    
 
 
 ---
 
 📊 Results
 
-The UART Controller successfully transmitted and received the 8-bit test data (0xA5). Simulation results verified correct baud timing, accurate FSM transitions, reliable serial communication, and successful end-to-end data transfer between the UART Transmitter and UART Receiver. Functional verification was completed through waveform analysis and RTL/dataflow visualization in ModelSim.
+> The UART Controller successfully transmitted and received serial data using configurable baud rates, configurable data widths (7-bit/8-bit), configurable stop bits (1/2), and configurable parity (Even/Odd/None). Simulation results verified correct baud timing, accurate FSM transitions, reliable serial communication, parity checking, framing error detection, and successful end-to-end loopback communication using ModelSim.
 
 
 ---
 
-📸 Simulation Results
+📸 Waveforms and RTL Views
 
 UART Top Waveform
 
@@ -281,45 +279,27 @@ docs/uart_rx_dataflow.png
 
 🛠️ Skills Demonstrated
 
-Verilog HDL
-
-RTL Design
-
-Finite State Machine (FSM)
-
-Digital Logic Design
-
-UART Communication Protocol
-
-Functional Verification
-
-Testbench Development
-
-Waveform Analysis
-
-Modular Hardware Design
-
-GitHub
-
+    • Verilog HDL
+    • RTL Design
+    • Parameterized RTL Design
+    • Finite State Machine (FSM)
+    • UART Communication Protocol
+    • Functional Verification
+    • Testbench Development
+    • Waveform Analysis
+    • Error Detection Techniques
+    • Modular Hardware Design
+    • GitHub
 
 ---
 
 🚀 Future Enhancements
 
-Configurable Baud Rate
-
-Configurable Data Width (7-bit / 8-bit)
-
-Even/Odd Parity Generation
-
-Even/Odd Parity Checking
-
-Configurable Stop Bits (1 or 2)
-
-FIFO Buffer Integration
-
-FPGA Hardware Implementation
-
+    • FIFO Buffer Integration
+    • Interrupt Support
+    • Hardware Validation on FPGA
+    • UART Register Interface
+    • APB/AHB Bus Interface
 
 ---
 
@@ -327,24 +307,20 @@ FPGA Hardware Implementation
 
 Through this project, the following concepts were implemented and verified:
 
-RTL Design using Verilog HDL
-
-Finite State Machine (FSM) Design
-
-UART Communication Protocol
-
-Modular Hardware Design
-
-Functional Simulation
-
-Testbench Development
-
-Digital System Integration
-
-Waveform Analysis
-
-RTL/Dataflow Verification
-
+    • RTL Design using Verilog HDL
+    • Parameterized RTL Design
+    • Finite State Machine (FSM) Design
+    • UART Communication Protocol
+    • Baud Rate Generation
+    • Serial Data Transmission and Reception
+    • Parity Generation and Checking
+    • Framing Error Detection
+    • Modular Hardware Design
+    • Functional Simulation
+    • Testbench Development
+    • Digital System Integration
+    • Waveform Analysis
+    • RTL/Dataflow Verification
 
 ---
 
@@ -352,7 +328,7 @@ RTL/Dataflow Verification
 
 Harshavardhan Akula
 
-GitHub: https://github.com/Harshavardhan739
+GitHub Profile: https://github.com/Harshavardhan739
 
 
 ---
