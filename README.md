@@ -186,6 +186,7 @@ The UART Controller follows a modular RTL design methodology.
 ---
 
 ✅ Verification Status
+
 All modules were verified individually before performing complete UART loopback verification.
 
           Module	             Status
