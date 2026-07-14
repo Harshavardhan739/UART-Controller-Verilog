@@ -27,25 +27,23 @@ The objective of this project is to design, implement, and verify a complete UAR
 
 ✨ Features
 
-8-bit UART Transmitter
-
-8-bit UART Receiver
-
-Baud Rate Generator
-
-UART Top-Level Integration
-
-FSM-Based Control Logic
-
-Modular RTL Design
-
-Individual Testbenches for Each Module
-
-Loopback Communication Verification
-
-ModelSim Waveform Verification
-
-RTL/Dataflow Verification
+• Parameterized Baud Rate Generator
+• Configurable Data Width (7-bit / 8-bit)
+• Configurable Stop Bits (1 / 2)
+• Configurable Parity
+  - Even Parity
+  - Odd Parity
+  - No Parity
+• UART Transmitter
+• UART Receiver
+• UART Top-Level Integration
+• FSM-Based Control Logic
+• Framing Error Detection
+• Modular RTL Design
+• Individual Testbenches for Each Module
+• Loopback Communication Verification
+• ModelSim Waveform Verification
+• RTL/Dataflow Verification
 
 
 ---
@@ -87,39 +85,41 @@ Provides synchronized baud ticks for both transmitter and receiver.
 
 📤 UART Transmitter
 
-Converts 8-bit parallel data into serial data.
+Converts parallel data into serial data according to the UART protocol.
 
-Implements UART transmission protocol using an FSM.
+Features:
+• Configurable 7-bit / 8-bit data
+• Configurable Even/Odd/No Parity
+• Configurable 1 or 2 Stop Bits
 
 FSM States
 
-IDLE
-
-START
-
-DATA
-
-STOP
-
+• IDLE
+• START
+• DATA
+• PARITY
+• STOP
 
 ---
 
 📥 UART Receiver
 
-Receives serial data and reconstructs the original 8-bit parallel data.
+Receives serial data and reconstructs the original parallel data.
 
-Implements UART reception protocol using an FSM.
+Features:
+• Configurable 7-bit / 8-bit data
+• Configurable Even/Odd/No Parity
+• Configurable 1 or 2 Stop Bits
+• Parity Error Detection
+• Framing Error Detection
 
 FSM States
 
-IDLE
-
-START
-
-DATA
-
-STOP
-
+• IDLE
+• START
+• DATA
+• PARITY
+• STOP
 
 ---
 
@@ -189,11 +189,11 @@ GitHub
 
 Module	Status
 
-    Baud Rate Generator	    ✅ Verified
+    Baud Rate Generator	      ✅ Verified
     UART Transmitter	      ✅ Verified
     UART Receiver	          ✅ Verified
-    UART Top Module	        ✅ Verified
-    Loopback Communication	✅ Passed
+    UART Top Module	          ✅ Verified
+    Loopback Communication	  ✅ Passed
 
 
 ---
@@ -202,23 +202,22 @@ Module	Status
 
 The following functionality has been verified:
 
-Baud Tick Generation
-
-UART Transmission
-
-UART Reception
-
-FSM State Transitions
-
-Busy Signal Operation
-
-RX Done Assertion
-
-Data Integrity
-
-End-to-End UART Communication
-
-
+• Baud Tick Generation
+• UART Transmission
+• UART Reception
+• 7-bit / 8-bit Data Transfer
+• Even Parity Verification
+• Odd Parity Verification
+• No Parity Mode
+• 1 Stop Bit Operation
+• 2 Stop Bit Operation
+• Parity Error Detection
+• Framing Error Detection
+• FSM State Transitions
+• Busy Signal Operation
+• RX Done Assertion
+• Data Integrity
+• End-to-End UART Communication
 ---
 
 🧪 Test Case
@@ -257,7 +256,7 @@ No functional errors observed
 
 📊 Results
 
-The UART Controller successfully transmitted and received the 8-bit test data (0xA5). Simulation results verified correct baud timing, accurate FSM transitions, reliable serial communication, and successful end-to-end data transfer between the UART Transmitter and UART Receiver. Functional verification was completed through waveform analysis and RTL/dataflow visualization in ModelSim.
+The UART Controller successfully transmitted and received serial data using configurable baud rates, configurable data widths (7-bit/8-bit), configurable stop bits (1/2), and configurable parity (Even/Odd/None). Simulation results verified correct baud timing, accurate FSM transitions, reliable serial communication, parity checking, framing error detection, and successful end-to-end loopback communication using ModelSim.
 
 
 ---
@@ -281,45 +280,27 @@ docs/uart_rx_dataflow.png
 
 🛠️ Skills Demonstrated
 
-Verilog HDL
-
-RTL Design
-
-Finite State Machine (FSM)
-
-Digital Logic Design
-
-UART Communication Protocol
-
-Functional Verification
-
-Testbench Development
-
-Waveform Analysis
-
-Modular Hardware Design
-
-GitHub
-
+• Verilog HDL
+• RTL Design
+• Parameterized RTL Design
+• Finite State Machine (FSM)
+• UART Communication Protocol
+• Functional Verification
+• Testbench Development
+• Waveform Analysis
+• Error Detection Techniques
+• Modular Hardware Design
+• GitHub
 
 ---
 
 🚀 Future Enhancements
 
-Configurable Baud Rate
-
-Configurable Data Width (7-bit / 8-bit)
-
-Even/Odd Parity Generation
-
-Even/Odd Parity Checking
-
-Configurable Stop Bits (1 or 2)
-
-FIFO Buffer Integration
-
-FPGA Hardware Implementation
-
+• FIFO Buffer Integration
+• Interrupt Support
+• Hardware Validation on FPGA
+• UART Register Interface
+• APB/AHB Bus Interface
 
 ---
 
