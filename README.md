@@ -228,7 +228,7 @@ The following functionality has been verified:
 
     • Expected Output
 
-      10100101 (0xA5)
+       10100101 (0xA5)
 
 
 ---
