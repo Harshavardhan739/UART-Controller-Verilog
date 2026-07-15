@@ -299,7 +299,7 @@ The following functionality has been verified:
 
 📈 UART Top Loopback Waveform
 
-![UART Top Waveform](waveforms/uart_top_loopback_waveform.png)
+![UART Top Waveform](waveforms/uart_top_waveform.png)
 
 ---
 
