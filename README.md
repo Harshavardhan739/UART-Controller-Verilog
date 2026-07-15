@@ -145,26 +145,22 @@ The transmitter output is internally connected to the receiver input to perform 
 
 🏗️ Design Methodology
 
-The UART Controller follows a modular RTL design methodology.
 
-1. Baud clock generation
+The UART Controller follows a modular and parameterized RTL design methodology.
 
+1. Parameterization of UART configuration (Baud Rate, Data Width, Stop Bits, and Parity)
 
-2. UART frame transmission
+2. Baud clock generation
 
+3. UART frame transmission
 
-3. UART frame reception
+4. UART frame reception
 
+5. FSM-based protocol implementation
 
-4. FSM-based protocol implementation
+6. Top-level integration
 
-
-5. Top-level integration
-
-
-6. Functional verification using ModelSim
-
-
+7. Functional verification using ModelSim
 
 
 ---
