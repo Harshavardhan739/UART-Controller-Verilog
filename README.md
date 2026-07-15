@@ -287,43 +287,6 @@ The following functionality has been verified:
 
 📸 Waveforms and RTL Views
 
-
-🏗️ UART Block Diagram
-
-![UART Block Diagram](docs/uart_block_diagram.png)
-
----
-
-🔄 UART Transmitter FSM
-
-![UART TX FSM](docs/uart_tx_fsm.png)
-
----
-
-🔄 UART Receiver FSM
-
-![UART RX FSM](docs/uart_rx_fsm.png)
-
----
-
-📸 Waveforms and RTL Views
-
-📈 UART Transmitter Waveform
-
-![UART TX Waveform](waveforms/uart_tx_waveform.png)
-
----
-
-📈 UART Receiver Waveform
-
-![UART RX Waveform](waveforms/uart_rx_waveform.png)
-
----
-
-📈 UART Top Loopback Waveform
-
-![UART Top Waveform](waveforms/uart_top_loopback_waveform.png)
-=======
 📈 UART Transmitter Waveform
 
 ![UART TX Waveform](waveforms/uart_tx_waveform.png)
