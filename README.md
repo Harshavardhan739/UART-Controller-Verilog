@@ -75,8 +75,6 @@
 
  ---
 
----
-
 ⚙️ Module Description
 
 🕐 Baud Rate Generator
