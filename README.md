@@ -61,11 +61,16 @@
        📄 uart_tx_tb.v   
        📄 uart_rx_tb.v  
        📄 uart_top_tb.v  
-    📂 waveforms/ (Simulation Waveform Logs)  
-       🖼️ uart_top_waveform.png  
-    📂 docs/ (Design Documentation and Diagrams)  
+    📂 docs/ (Design Documentation and Diagrams) 
+       🖼️ uart_block_diagram.png
+       🖼️ uart_tx_fsm.png
+       🖼️ uart_rx_fsm.png
        🖼️ uart_tx_dataflow.png  
        🖼️ uart_rx_dataflow.png  
+    📂 waveforms/ (Simulation Waveform Logs)   
+       🖼️ uart_tx_waveform.png  
+       🖼️ uart_rx_waveform.png
+       🖼️ uart_top_waveform.png
     📄 README.md
 
  ---
@@ -260,20 +265,53 @@ The following functionality has been verified:
 
 ---
 
+🏗️ UART Block Diagram
+
+![UART Block Diagram](docs/uart_block_diagram.png)
+
+---
+
+🔄 UART Transmitter FSM
+
+![UART TX FSM](docs/uart_tx_fsm.png)
+
+---
+
+🔄 UART Receiver FSM
+
+![UART RX FSM](docs/uart_rx_fsm.png)
+
+---
+
 📸 Waveforms and RTL Views
 
-UART Top Waveform
+📈 UART Transmitter Waveform
 
-waveforms/uart_top_waveform.png
+![UART TX Waveform](waveforms/uart_tx_waveform.png)
 
-UART Transmitter Dataflow
+---
 
-docs/uart_tx_dataflow.png
+📈 UART Receiver Waveform
 
-UART Receiver Dataflow
+![UART RX Waveform](waveforms/uart_rx_waveform.png)
 
-docs/uart_rx_dataflow.png
+---
 
+📈 UART Top Loopback Waveform
+
+![UART Top Waveform](waveforms/uart_top_loopback_waveform.png)
+
+---
+
+🔧 UART Transmitter RTL Dataflow
+
+![UART TX Dataflow](docs/uart_tx_dataflow.png)
+
+---
+
+🔧 UART Receiver RTL Dataflow
+
+![UART RX Dataflow](docs/uart_rx_dataflow.png)
 
 ---
 
