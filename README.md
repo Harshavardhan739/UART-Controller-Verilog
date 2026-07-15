@@ -305,24 +305,6 @@ The following functionality has been verified:
 
 ---
 
-📈 UART Transmitter Waveform
-
-![UART TX Waveform](waveforms/uart_tx_waveform.png)
-
----
-
-📈 UART Receiver Waveform
-
-![UART RX Waveform](waveforms/uart_rx_waveform.png)
-
----
-
-📈 UART Top Loopback Waveform
-
-![UART Top Waveform](waveforms/uart_top_waveform.png)
-
----
-
 🔧 UART Transmitter RTL Dataflow
 
 ![UART TX Dataflow](docs/uart_tx_dataflow.png)
@@ -335,7 +317,6 @@ The following functionality has been verified:
 
 ---
 
----
 
 🛠️ Skills Demonstrated
 
